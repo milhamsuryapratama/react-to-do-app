@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -68,3 +69,7 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
 # Repository-Baru
 # Repository-Baru
+=======
+# react-to-do-app
+Simple example to do list app in react js
+>>>>>>> 23703165d1301769fb681ed05f58bc7205f68a3c
