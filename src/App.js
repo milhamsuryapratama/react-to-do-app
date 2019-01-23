@@ -1,62 +1,62 @@
-import React, { Component } from 'react';
-import './App.css';
-import TodoList from './components/TodoList';
-import InputTodo from './components/InputTodo';
-
+import React, { Component } from "react"
+import "./App.css"
+import TodoList from "./components/TodoList"
+import InputTodo from "./components/InputTodo"
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      todos: [
-        { id: 1, todo: "MAKAN" },
-        { id: 2, todo: "MANDI" },
-        { id: 3, todo: "MINUM" }
-      ],
-
-      editTodo: "",
-
-      local: ""
+  state = {
+    todos: ["Makan", "Mandi"],
+    initialInput: {
+      index: null,
+      todo: ""
     }
-
-    localStorage.setItem("localstr", JSON.stringify(this.state.todos))
-
   }
 
-  addToDo = (todo) => {
-    const todos = this.state.todos
-    todos.push(todo)
-
-    let b = localStorage.getItem("localstr")
-
-    this.setState({ todos, local: b })
-    console.log(this.state.local)
-
+  setInitialInput = initialInput => {
+    this.setState({ initialInput })
   }
 
-  deleteTodo = (i) => {
+  deleteTodo = index => {
     const todos = this.state.todos
-    todos.splice(i, 1)
+    todos.splice(index, 1)
     this.setState({ todos })
   }
 
-  editTodo = (i) => {
+  addToDo = input => {
     const todos = this.state.todos
-    this.setState({
-      editTodo: todos[i]
-    })
+    todos.push(input.todo)
+    this.setState({ todos })
+  }
+
+  editTodo = input => {
+    const todos = this.state.todos
+    todos[input.index] = input.todo
+    this.setState({ todos })
+  }
+
+  submitTodo = input => {
+    if (input.index) this.editTodo(input)
+    else this.addToDo(input)
+
+    this.setInitialInput({ index: null, todo: "" })
   }
 
   render() {
     return (
       <div className="App">
         <h1>TODO LIST APP</h1>
-        <InputTodo onSubmit={todo => this.addToDo(todo)} editValue={this.state.editTodo} />
-        <TodoList todos={this.state.todos} deleteTodo={this.deleteTodo} editTodo={this.editTodo} />
+        <InputTodo
+          onSubmit={this.submitTodo}
+          initialInput={this.state.initialInput}
+        />
+        <TodoList
+          todos={this.state.todos}
+          onClickDelete={this.deleteTodo}
+          onClickEdit={this.setInitialInput}
+        />
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
